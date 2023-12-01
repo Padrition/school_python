@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Autoservis { % block title % } { % endbloc % }</title>
+        <title>Autoservis { % block title % } { % endblock % }</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     </head>
     <body>
-        <nav>
-            <form action="">
-                <input type="button" value="Prihlasit se">
-            </form>
-        </nav>
+        <div class="topnav">
+            <div class="topnav_right">
+                <a href="/login">Prihlasit se</a>
+            </div>
+        </div>
     </body>
 </html>
