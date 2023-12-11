@@ -22,3 +22,19 @@ body {
 .topnav_right{
     float: right;
 }
+
+.content {
+    text-align: center;
+    padding: 1.5em;
+}
+
+.content img{
+    width: 40%;
+    border-radius: 0.5em;
+}
+
+.content p{
+    font-size: 18px;
+    margin-left: 20%;
+    margin-right: 20%;
+}

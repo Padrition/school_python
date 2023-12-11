@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Autoservis { % block title % } { % endblock % }</title>
+        <title>Autoservis {% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     </head>
     <body>
@@ -9,6 +9,9 @@
             <div class="topnav_right">
                 <a href="/login">Prihlasit se</a>
             </div>
+        </div>
+        <div class="content">
+            {% block content %}{% endblock %}
         </div>
     </body>
 </html>
