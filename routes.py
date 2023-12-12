@@ -5,3 +5,11 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     return render_template("index.html")
+
+@app.route("/car")
+def car_list():
+    return render_template("car_list.html")
+
+@app.route("/servis")
+def servis_list():
+    return render_template("servis_list.html")
