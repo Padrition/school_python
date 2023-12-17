@@ -10,6 +10,10 @@ def hello():
 def registration():
     return render_template("registration.html")
 
+@app.route("/login")
+def authorization():
+    return render_template("authorization.html")
+
 @app.route("/car")
 def car_list():
     return render_template("car_list.html")
