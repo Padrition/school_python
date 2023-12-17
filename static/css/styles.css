@@ -2,6 +2,15 @@ body {
     margin: 0;
 }
 
+input[type=submit]{
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 15px;
+    font-size: 18px;
+}
+
 .topnav {
     background-color: rgb(81, 97, 187);
     border-bottom: 2px solid black;
@@ -37,4 +46,14 @@ body {
     font-size: 18px;
     margin-left: 20%;
     margin-right: 20%;
+}
+
+.registration{
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 10%;
+    padding: 2em;
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 5px;
 }
