@@ -9,3 +9,11 @@ def hello():
 @app.route("/reg")
 def registration():
     return render_template("registration.html")
+
+@app.route("/car")
+def car_list():
+    return render_template("car_list.html")
+
+@app.route("/servis")
+def servis_list():
+    return render_template("servis_list.html")
