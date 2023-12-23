@@ -20,7 +20,18 @@ input[type=submit]:hover {
     background-color: rgb(81, 97, 187);
     border-bottom: 2px solid black;
     overflow: hidden;
-    padding: 5px;
+    padding-top: 5px;
+}
+
+.topnav img{
+    border-radius: 5px;
+    width: 3em;
+    margin-left: 1em;
+}
+
+.topnav input[type=submit]{
+    margin-top: 5px;
+    margin-right: 1em;
 }
 
 .topnav_right{
