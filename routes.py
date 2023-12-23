@@ -33,3 +33,7 @@ def mechanic_screen():
 @app.route("/manager")
 def manager_screen():
     return render_template("base_manager_page.html")
+
+@app.route("/admin")
+def admin_screen():
+    return render_template("base_admin_page.html")
