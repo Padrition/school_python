@@ -38,17 +38,17 @@ input[type=submit]:hover {
     float: right;
 }
 
-.content {
+.base_content {
     text-align: center;
     padding: 1.5em;
 }
 
-.content img{
+.base_content img{
     width: 40%;
     border-radius: 0.5em;
 }
 
-.content p{
+.base_content p{
     font-size: 18px;
     margin-left: 20%;
     margin-right: 20%;
@@ -62,4 +62,17 @@ input[type=submit]:hover {
     text-align: left;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+.panel {
+    display: inline-block;
+    border-right: 1px solid black;
+    height: 100vh;
+    text-align: center;
+    padding: 1em;
+}
+
+.panel input[type=submit] {
+    font-size: 24px;
+    font-weight: bold;
 }

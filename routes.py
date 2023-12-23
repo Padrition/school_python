@@ -21,3 +21,7 @@ def car_list():
 @app.route("/servis")
 def servis_list():
     return render_template("servis_list.html")
+
+@app.route("/client")
+def client_screen():
+    return render_template("base_client_page.html")

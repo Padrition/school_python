@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Autoservis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="topnav">
+        <a href="/"><img src="{{url_for('static', filename='logo.jpg')}}" alt=""></a>
+        <div class="topnav_right">
+            <form action="/logout">
+                <input type="submit" value="Odhlasit se">
+            </form>
+        </div>
+    </div>
+    <div class="panel">
+        <form action="">
+            <input type="submit" value="Aktualni opravy" formaction="/service_list"><br><br>
+            <input type="submit" value="Seznam vozidel" formaction="/car_list">
+        </form>
+    </div>
+    <div class="content">
+
+    </div>
+</body>
+</html>
