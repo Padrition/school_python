@@ -75,4 +75,7 @@ input[type=submit]:hover {
 .panel input[type=submit] {
     font-size: 24px;
     font-weight: bold;
+    margin-bottom: 1em;
+    float: left;
+    width: 100%;
 }
