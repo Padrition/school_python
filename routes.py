@@ -25,3 +25,7 @@ def servis_list():
 @app.route("/client")
 def client_screen():
     return render_template("base_client_page.html")
+
+@app.route("/mechanic")
+def mechanic_screen():
+    return render_template("base_mechanic_page.html")
