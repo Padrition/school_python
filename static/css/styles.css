@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+.container{
+    display: flex;
+}
+
 input[type=submit]{
     background-color: blue;
     color: white;
@@ -78,4 +82,14 @@ input[type=submit]:hover {
     margin-bottom: 1em;
     float: left;
     width: 100%;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+input[type=submit]:active {
+    box-shadow: 2px 2px 5px rgb(81, 97, 187);
 }
