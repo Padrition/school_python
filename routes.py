@@ -41,3 +41,16 @@ def admin():
 @app.route("/admin_car_list")
 def admin_car_list():
     return render_template("admin_carlist.html")
+
+@app.route("/admin_service_list")
+def admin_service_list():
+    return render_template("admin_servicelist.html")
+
+@app.route("/admin_order_list")
+def admin_order_list():
+    return render_template("admin_orderlist.html");
+
+@app.route("/admin_user_list")
+def admin_user_lsit():
+    return render_template("admin_userlist.html")
+
