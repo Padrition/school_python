@@ -13,6 +13,7 @@ input[type=submit]{
     border-radius: 8px;
     padding: 5px 15px;
     font-size: 18px;
+    font-weight: bold;
 }
 
 input[type=submit]:hover {
@@ -38,7 +39,7 @@ input[type=submit]:hover {
     margin-right: 1em;
 }
 
-.topnav_right{
+.right{
     float: right;
 }
 
@@ -78,18 +79,35 @@ input[type=submit]:hover {
 
 .panel input[type=submit] {
     font-size: 24px;
-    font-weight: bold;
     margin-bottom: 1em;
     float: left;
     width: 100%;
 }
 
 .content {
-    flex-grow: 1;
+    flex: auto;
     padding: 1em;
-    box-sizing: border-box;
 }
 
 input[type=submit]:active {
     box-shadow: 2px 2px 5px rgb(81, 97, 187);
 }
+
+#add_car {
+    padding: 1em;
+}
+
+.tb_center{
+    border-collapse: collapse;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.th_centered_border th {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid black;
+    margin: auto;
+}
+

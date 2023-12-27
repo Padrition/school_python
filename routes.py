@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 app = Flask(__name__)
 
@@ -35,5 +35,9 @@ def manager_screen():
     return render_template("base_manager_page.html")
 
 @app.route("/admin")
-def admin_screen():
-    return render_template("base_admin_page.html")
+def admin():
+    return redirect("/admin_car_list")
+
+@app.route("/admin_car_list")
+def admin_car_list():
+    return render_template("admin_carlist.html")

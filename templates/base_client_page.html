@@ -8,7 +8,7 @@
 <body>
     <div class="topnav">
         <a href="/"><img src="{{url_for('static', filename='logo.jpg')}}" alt=""></a>
-        <div class="topnav_right">
+        <div class="right">
             <form action="/logout">
                 <input type="submit" value="Odhlasit se">
             </form>
@@ -22,7 +22,7 @@
             </form>
         </div>
         <div class="content">
-    
+            {% block content %}{% endblock %}
         </div>
     </div>
 </body>
