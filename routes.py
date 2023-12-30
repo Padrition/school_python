@@ -1,15 +1,39 @@
 import sqlite3
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 
 app = Flask(__name__)
+
+with open("init_db.py") as init:
+    exec(init.read())
 
 @app.route("/")
 def hello():
     return render_template("index.html")
 
-@app.route("/reg")
+@app.route("/reg", methods = ['GET', 'POST'])
 def registration():
-    return render_template("registration.html")
+    if request.method == 'GET':
+        return render_template("registration.html")
+    
+    if request.method == 'POST':
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+        cur.execute(
+            'INSERT INTO uzivately (jmeno, primeni, login, heslo) VALUES(?,?,?,?)',
+            (
+                request.form['fname'],
+                request.form['lname'],
+                request.form['login'],
+                request.form['password']
+            )
+        )
+        cur.execute(
+            "INSERT INTO role_uzivately (platnost, nazev, id_uzivatele) VALUES(1, 'user', last_insert_rowid())"
+        )
+        con.commit()
+        con.close()
+        return redirect("/client")
+        
 
 @app.route("/login")
 def authorization():

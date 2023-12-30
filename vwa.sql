@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS role_uzivately(
     platnost INTEGER NOT NULL, -- 0 - false; 1 - true
     nazev TEXT NOT NULL,
     id_uzivatele INTEGER NOT NULL,
-    pridelil INTEGER NOT NULL,
+    pridelil INTEGER,
     FOREIGN KEY(id_uzivatele) REFERENCES uzivately(id),
     FOREIGN KEY(nazev) REFERENCES role(nazev),
     FOREIGN KEY(pridelil) REFERENCES uzivately(id)
@@ -73,3 +73,8 @@ CREATE TABLE IF NOT EXISTS notifikace(
     zprava TEXT NOT NULL,
     FOREIGN KEY(id_stav) REFERENCES stav_servisu(id)
 );
+
+INSERT OR IGNORE INTO role (nazev, popis) VALUES ('user', 'Obycejny user');
+INSERT OR IGNORE INTO role (nazev, popis) VALUES ('mechanic', 'Obycejny mechanic');
+INSERT OR IGNORE INTO role (nazev, popis) VALUES ('manager', 'Manager');
+INSERT OR IGNORE INTO role (nazev, popis) VALUES ('admin', 'Super mega amin');
