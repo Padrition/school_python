@@ -79,7 +79,11 @@ def client_order_list():
 
 @app.route("/mechanic")
 def mechanic_screen():
-    return render_template("base_mechanic_page.html")
+    return redirect("/mechanic/car_list")
+
+@app.route("/mechanic/car_list")
+def mechanic_car_list():
+    return render_template("mechanic_car_list.html")
 
 @app.route("/manager")
 def manager_screen():
