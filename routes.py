@@ -81,19 +81,19 @@ def manager_screen():
 def admin():
     return redirect("/admin_car_list")
 
-@app.route("/admin_car_list")
+@app.route("/admin/car_list")
 def admin_car_list():
     return render_template("admin_carlist.html")
 
-@app.route("/admin_service_list")
+@app.route("/admin/service_list")
 def admin_service_list():
     return render_template("admin_servicelist.html")
 
-@app.route("/admin_order_list")
+@app.route("/admin/order_list")
 def admin_order_list():
     return render_template("admin_orderlist.html");
 
-@app.route("/admin_user_list")
+@app.route("/admin/user_list")
 def admin_user_lsit():
     return render_template("admin_userlist.html")
 
