@@ -111,3 +111,9 @@ input[type=submit]:active {
     margin: auto;
 }
 
+.error{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: rgb(200, 30, 30);
+}

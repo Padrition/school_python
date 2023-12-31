@@ -5,7 +5,10 @@
 <div class="registration">
     <h4>Priglaseni</h4>
     <hr><br>
-    <form action="">
+    {% if error %}
+        <p class="error">{{error}}</p>
+    {% endif %}
+    <form action="/login" method="post">
         <label for="login">Login:</label><br>
         <input type="text" id="login" name="login"><br>
         <label for="password">Heslo:</label><br>

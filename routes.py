@@ -1,7 +1,8 @@
 import sqlite3
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '8d7778f920ce5ca8d70b40eee907a06d'
 
 with open("init_db.py") as init:
     exec(init.read())
@@ -35,17 +36,34 @@ def registration():
         return redirect("/client")
         
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def authorization():
-    return render_template("authorization.html")
+    if request.method == 'GET':
+        return render_template("authorization.html")
 
-@app.route("/car")
-def car_list():
-    return render_template("car_list.html")
+    if request.method == 'POST':
+        login = request.form['login']
+        password = request.form['password']
 
-@app.route("/servis")
-def servis_list():
-    return render_template("servis_list.html")
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute("SELECT * FROM uzivately WHERE login = ? AND heslo = ?",(login, password))
+        user = cur.fetchone()
+
+        con.close()
+
+        if user:
+            session['user_id'] = user[0]
+            return redirect('/client')## TODO: make redirect to a role page, based on what role the user is
+        else:
+            return render_template("authorization.html", error="Špatné údaje!")
+
+@app.route("/logout", methods=['GET'])
+def logout():
+    session.pop('user_id', None)
+    return redirect('/')
+
 
 @app.route("/client")
 def client_screen():
