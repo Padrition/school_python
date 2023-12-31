@@ -67,7 +67,15 @@ def logout():
 
 @app.route("/client")
 def client_screen():
-    return render_template("base_client_page.html")
+    return redirect("/client/order_list")
+
+@app.route("/client/car_list")
+def client_car_list():
+    return render_template("client_carlist.html");
+
+@app.route("/client/order_list")
+def client_order_list():
+    return render_template("client_orderlist.html");
 
 @app.route("/mechanic")
 def mechanic_screen():
