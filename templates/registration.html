@@ -1,11 +1,36 @@
 {%extends 'base.html'%}
 {%block title%}Registrace{%endblock%}
 {% block content %}
+<script>
+    function validateForm(){
+        var fname = document.getElementById("login").value;
+        var lname = document.getElementById("password").value;
+        var login = document.getElementById("login").value;
+        var password = document.getElementById("password").value;
+        var password_repeat = document.getElementById("password_repeat").value;
 
+        if (fname === "" || lname === "" || login === "" || password === "" || password_repeat === "") {
+            var errorMessage = document.getElementById("error_message");
+            errorMessage.innerHTML = "Doplnte vsechny sve udaje!";
+            errorMessage.style.color = "red";
+            return false;
+        }
+
+        if (password !== password_repeat) {
+            var errorMessage = document.getElementById("error_message");
+            errorMessage.innerHTML = "Hesla se neshoduji!";
+            errorMessage.style.color = "red";
+            return false;
+        }
+
+        return true;
+    }
+</script>
 <div class="registration">
     <h4>Registrace uctu</h4>
     <hr><br>
-    <form action="/reg" method="post">
+    <strong id="error_message"></strong>
+    <form action="/reg" method="post" onsubmit="return validateForm()">
         <label for="fname">Jmeno:</label><br>
         <input type="text" id="fname" name="fname"><br>
         <label for="lname">Primeni:</label><br>
