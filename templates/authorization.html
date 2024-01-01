@@ -1,6 +1,27 @@
 {%extends 'base.html'%}
 {%block title%}Registrace{%endblock%}
 {% block content %}
+<script>
+    function validateForm() {
+        var login = document.getElementById("login").value;
+        var password = document.getElementById("password").value;
+
+        if (login === "" || password === "") {
+            var errorMessage = document.getElementById("error_message");
+            var errorStarLg = document.getElementById("error_star_lg");
+            var errorStarPw = document.getElementById("error_star_pw");
+            errorMessage.innerHTML = "Doplnte vsechny sve udaje!";
+            errorMessage.style.color = "red";
+            errorStarLg.innerHTML = "*";
+            errorStarLg.style.color = "red";
+            errorStarPw.innerHTML = "*";
+            errorStarPw.style.color = "red";
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 <div class="registration">
     <h4>Priglaseni</h4>
@@ -8,11 +29,12 @@
     {% if error %}
         <p class="error">{{error}}</p>
     {% endif %}
-    <form action="/login" method="post">
+    <p id="error_message"></p>
+    <form action="/login" method="post" onsubmit="return validateForm()">
         <label for="login">Login:</label><br>
-        <input type="text" id="login" name="login"><br>
+        <input type="text" id="login" name="login"><strong id="error_star_lg"></strong><br>
         <label for="password">Heslo:</label><br>
-        <input type="password" id="password" name="password"><br><br>
+        <input type="password" id="password" name="password"><strong id="error_star_pw"></strong><br><br>
         <input type="submit" value="Prihlasitse se"><br>
     </form>
     <a href="">Zapomneli jste sve udaje?</a>
