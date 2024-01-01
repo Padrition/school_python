@@ -1,5 +1,6 @@
 import sqlite3
 from flask import Flask, render_template, redirect, request, session
+from functools import wraps
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8d7778f920ce5ca8d70b40eee907a06d'
@@ -81,12 +82,49 @@ def logout():
     session.pop('user_id', None)
     return redirect('/')
 
+def admin_authorization(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'user_role' in session and session['user_role'] == 'admin':
+            return func(*args, **kwargs)
+        else:
+            return redirect('/'+session['user_role'])
+    return wrapper
+
+def manager_authorization(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'user_role' in session and session['user_role'] == 'manager':
+            return func(*args, **kwargs)
+        else:
+            return redirect('/'+session['user_role'])
+    return wrapper
+
+def mechanic_authorization(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'user_role' in session and session['user_role'] == 'mechanic':
+            return func(*args, **kwargs)
+        else:
+            return redirect('/'+session['user_role'])
+    return wrapper
+
+def client_authorization(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if 'user_role' in session and session['user_role'] == 'client':
+            return func(*args, **kwargs)
+        else:
+            return redirect('/'+session['user_role'])
+    return wrapper
 
 @app.route("/client")
+@client_authorization
 def client_screen():
     return redirect("/client/order_list")
 
 @app.route("/client/car_list")
+@client_authorization
 def client_car_list():
     con = sqlite3.connect("vwa.db")
     cur = con.cursor()
@@ -101,6 +139,7 @@ def client_car_list():
     return render_template("client_carlist.html", data=data);
 
 @app.route("/client/add_car", methods=['GET','POST'])
+@client_authorization
 def client_add_car():
     if request.method == 'GET':
         return render_template("client_add_car.html")
@@ -123,38 +162,47 @@ def client_add_car():
         return redirect('/client/car_list')
 
 @app.route("/client/order_list")
+@client_authorization
 def client_order_list():
     return render_template("client_orderlist.html");
 
 @app.route("/mechanic")
+@mechanic_authorization
 def mechanic_screen():
     return redirect("/mechanic/car_list")
 
 @app.route("/mechanic/car_list")
+@mechanic_authorization
 def mechanic_car_list():
     return render_template("mechanic_car_list.html")
 
 @app.route("/manager")
+@manager_authorization
 def manager_screen():
     return render_template("base_manager_page.html")
 
 @app.route("/admin")
+@admin_authorization
 def admin():
     return redirect("/admin/car_list")
 
 @app.route("/admin/car_list")
+@admin_authorization
 def admin_car_list():
     return render_template("admin_carlist.html")
 
 @app.route("/admin/service_list")
+@admin_authorization
 def admin_service_list():
     return render_template("admin_servicelist.html")
 
 @app.route("/admin/order_list")
+@admin_authorization
 def admin_order_list():
     return render_template("admin_orderlist.html");
 
 @app.route("/admin/user_list")
+@admin_authorization
 def admin_user_lsit():
     return render_template("admin_userlist.html")
 

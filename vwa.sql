@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS notifikace(
     FOREIGN KEY(id_stav) REFERENCES stav_servisu(id)
 );
 
-INSERT OR IGNORE INTO role (nazev, popis) VALUES ('user', 'Obycejny user');
+INSERT OR IGNORE INTO role (nazev, popis) VALUES ('client', 'Obycejny user');
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('mechanic', 'Obycejny mechanic');
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('manager', 'Manager');
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('admin', 'Super mega amin');
