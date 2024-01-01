@@ -79,5 +79,5 @@ INSERT OR IGNORE INTO role (nazev, popis) VALUES ('mechanic', 'Obycejny mechanic
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('manager', 'Manager');
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('admin', 'Super mega amin');
 INSERT OR IGNORE INTO typ_operace (nazev, popis) VALUES('Technicka kontrola', 'Technicka kontrola vozidla za ucelem najit problem');
-INSERT OR IGNORE INTO typ_operace (nazev, popis) VALUE('Oprava', 'Prodelani kroku s cilem likvidace problemu');
-INSERT OR IGNORE INTO typ_operace (nazev, popis) VALUE('Likvidace', 'Likvidace vraku');
+INSERT OR IGNORE INTO typ_operace (nazev, popis) VALUES('Oprava', 'Prodelani kroku s cilem likvidace problemu');
+INSERT OR IGNORE INTO typ_operace (nazev, popis) VALUES('Likvidace', 'Likvidace vraku');

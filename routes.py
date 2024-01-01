@@ -73,6 +73,28 @@ def client_screen():
 def client_car_list():
     return render_template("client_carlist.html");
 
+@app.route("/client/add_car", methods=['GET','POST'])
+def client_add_car():
+    if request.method == 'GET':
+        return render_template("client_add_car.html")
+
+    if request.method == 'POST':
+        model = request.form['car_model']
+        license_plate = request.form['spz']
+        year = request.form['year']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'INSERT INTO vozidla (spz, model, rok_vyroby, vlastnik) VALUES(?,?,?,?)',(model, license_plate, year, session['user_id'])
+        )        
+
+        con.commit()
+        con.close()
+
+        return redirect('/client/car_list')
+
 @app.route("/client/order_list")
 def client_order_list():
     return render_template("client_orderlist.html");
