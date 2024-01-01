@@ -8,7 +8,7 @@ with open("init_db.py") as init:
     exec(init.read())
 
 @app.route("/")
-def hello():
+def index_page():
     return render_template("index.html")
 
 @app.route("/reg", methods = ['GET', 'POST'])
@@ -34,7 +34,6 @@ def registration():
         con.commit()
         con.close()
         return redirect("/client")
-        
 
 @app.route("/login", methods=['GET', 'POST'])
 def authorization():
@@ -55,7 +54,25 @@ def authorization():
 
         if user:
             session['user_id'] = user[0]
-            return redirect('/client')## TODO: make redirect to a role page, based on what role the user is
+
+            con = sqlite3.connect("vwa.db")
+            cur = con.cursor()
+
+            cur.execute(
+                'SELECT nazev FROM role_uzivately WHERE id_uzivatele = ?', (session['user_id'],)
+                )
+            role = cur.fetchone()
+
+            con.close()
+
+            if role:
+                session['user_role'] = role[0]
+
+                return redirect('/'+session['user_role'])
+                
+            else:
+                return render_template("authorization.html", error="Role nebyla nalezena!")
+
         else:
             return render_template("authorization.html", error="Špatné údaje!")
 
@@ -123,7 +140,7 @@ def manager_screen():
 
 @app.route("/admin")
 def admin():
-    return redirect("/admin_car_list")
+    return redirect("/admin/car_list")
 
 @app.route("/admin/car_list")
 def admin_car_list():
