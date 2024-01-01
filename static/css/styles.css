@@ -104,11 +104,19 @@ input[type=submit]:active {
     margin-right: auto;
 }
 
-.th_centered_border th {
-    text-align: center;
+.th_border th {
+    text-align: left;
     padding: 8px;
     border-bottom: 1px solid black;
     margin: auto;
+}
+
+.tb_color_even_tr tr:nth-child(even){
+    background-color: rgb(222, 222, 222);
+}
+
+.td_submit{
+    text-align: right;
 }
 
 .error{

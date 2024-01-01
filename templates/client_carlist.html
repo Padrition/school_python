@@ -4,7 +4,7 @@
     <form style="direction: rtl;" action="/client/add_car">
         <input id="add_car" type="submit" value="Pridat auto">
     </form>
-    <table class="tb_center th_centered_border">
+    <table class="tb_center th_border tb_color_even_tr">
         <tr>
             <th>Model</th>
             <th>SPZ</th>
@@ -16,6 +16,7 @@
                 <td>{{ row[0] }}</td> <!--Model-->
                 <td>{{ row[1] }}</td> <!--spz-->
                 <td>{{ row[2] }}</td> <!--rok-->
+                <td class="td_submit"><form action=""><input type="submit" value="Objednat servis"></form></td>
             </tr>
         {% endfor %}
     </table>
