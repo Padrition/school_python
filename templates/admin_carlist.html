@@ -4,7 +4,7 @@
     <form style="direction: rtl;" action="">
         <input id="add_car" type="submit" value="Pridat auto">
     </form>
-    <table class="tb_center th_centered_border">
+    <table class="tb_center th_border tb_color_even_tr">
         <tr>
             <th>Model</th>
             <th>SPZ</th>
@@ -12,6 +12,17 @@
             <th>Majitel</th>
             <th></th>
             <th></th>
+
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td> <!--Model-->
+                    <td>{{ row[1] }}</td> <!--SPZ-->
+                    <td>{{ row[2] }}</td> <!--Rok-->
+                    <td>{{ row[3] ~ ' ' ~ row[4]}}</td> <!--Jmeno-->
+                    <td class="td_submit"><form action=""><input type="submit" value="Upravit"></form></td>
+                    <td class="td_submit"><form action=""><input style="background-color: red;" type="submit" value="Smazat"></form></td>
+                </tr>
+            {% endfor %}
         </tr>
     </table>
 </div>

@@ -189,7 +189,16 @@ def admin():
 @app.route("/admin/car_list")
 @admin_authorization
 def admin_car_list():
-    return render_template("admin_carlist.html")
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        'SELECT v.model, v.spz, v.rok_vyroby, u.primeni, u.jmeno FROM vozidla v INNER JOIN uzivately u ON v.vlastnik = u.id'
+    )
+    data = cur.fetchall()
+
+    con.close()
+    return render_template("admin_carlist.html", data=data)
 
 @app.route("/admin/service_list")
 @admin_authorization
