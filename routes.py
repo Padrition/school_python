@@ -71,7 +71,17 @@ def client_screen():
 
 @app.route("/client/car_list")
 def client_car_list():
-    return render_template("client_carlist.html");
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        'SELECT model, spz, rok_vyroby FROM vozidla WHERE vlastnik = ?', (session['user_id'],)
+    )
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template("client_carlist.html", data=data);
 
 @app.route("/client/add_car", methods=['GET','POST'])
 def client_add_car():
@@ -87,7 +97,7 @@ def client_add_car():
         cur = con.cursor()
 
         cur.execute(
-            'INSERT INTO vozidla (spz, model, rok_vyroby, vlastnik) VALUES(?,?,?,?)',(model, license_plate, year, session['user_id'])
+            'INSERT INTO vozidla (spz, model, rok_vyroby, vlastnik) VALUES(?,?,?,?)',(license_plate, model, year, session['user_id'])
         )        
 
         con.commit()

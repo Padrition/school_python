@@ -8,9 +8,16 @@
         <tr>
             <th>Model</th>
             <th>SPZ</th>
-            <th>Zpravy</th>
+            <th>Rok</th>
             <th></th>
         </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td> <!--Model-->
+                <td>{{ row[1] }}</td> <!--spz-->
+                <td>{{ row[2] }}</td> <!--rok-->
+            </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}
