@@ -200,6 +200,42 @@ def admin_car_list():
     con.close()
     return render_template("admin_carlist.html", data=data)
 
+@app.route('/admin/add_car', methods=['GET', 'POST'])
+@admin_authorization
+def admin_add_car():
+    if request.method == 'GET':
+        return render_template("admin_add_car.html")
+    if request.method == 'POST':
+        owner_login = request.form['owner']
+        model = request.form['car_model']
+        license_plate = request.form['spz']
+        year = request.form['year']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'SELECT * FROM uzivately WHERE login = ?',(owner_login,)
+        )
+        owner = cur.fetchone();
+
+        con.close();
+
+        if owner:
+            con = sqlite3.connect("vwa.db")
+            cur = con.cursor()
+
+            cur.execute(
+                'INSERT INTO vozidla (spz, model, rok_vyroby, vlastnik) VALUES(?,?,?,?)', (license_plate, model, year, owner[0])
+            )
+            con.commit()
+            
+            con.close()
+
+            return redirect("/admin/car_list")
+        else:
+            return render_template("admin_add_car.html", error="Uzivatel s tymto loginem neexistuje!")
+
 @app.route("/admin/service_list")
 @admin_authorization
 def admin_service_list():
