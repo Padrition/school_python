@@ -117,6 +117,7 @@ input[type=submit]:active {
 
 .td_submit{
     text-align: right;
+    padding-right: 5px;
 }
 
 .error{
@@ -177,4 +178,14 @@ input[type=submit]:active {
 
 .info_icon:hover{
     cursor: pointer;
+}
+
+.truncate{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.td_description{
+    max-width: 300px;
 }

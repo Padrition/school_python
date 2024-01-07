@@ -305,7 +305,20 @@ def admin_service_list():
 @app.route("/admin/order_list")
 @admin_authorization
 def admin_order_list():
-    return render_template("admin_orderlist.html");
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.id, v.model, v.spz, v.rok_vyroby, v.vlastnik, s.problem FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        """
+    )
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template("admin_orderlist.html", data=data);
 
 @app.route("/admin/user_list")
 @admin_authorization

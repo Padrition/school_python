@@ -1,16 +1,27 @@
 {% extends 'base_admin_page.html'%}
 {% block content %}
 <div>
-    <table class="tb_center th_centered_border">
+    <table class="tb_center th_border tb_color_even_tr">
         <tr>
             <th>Model</th>
             <th>SPZ</th>
             <th>Rok</th>
-            <th>Typ servisu</th>
+            <th>Majitel</th>
             <th>Popis</th>
             <th></th>
             <th></th>
         </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td class="td_description">{{ row[5] }}</td>
+                <td class="td_submit"><form action=""><input type="submit" value="Pridat termin"></form></td>
+                <td class="td_submit"><form action=""><input style="background-color: red;" type="submit" value="Smazat"></form></td>
+            </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}
