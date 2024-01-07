@@ -15,12 +15,17 @@
 
             {% for row in data %}
                 <tr>
-                    <td>{{ row[0] }}</td> <!--Model-->
-                    <td>{{ row[1] }}</td> <!--SPZ-->
-                    <td>{{ row[2] }}</td> <!--Rok-->
-                    <td>{{ row[3] ~ ' ' ~ row[4]}}</td> <!--Jmeno-->
+                    <td>{{ row[1] }}</td> <!--Model-->
+                    <td>{{ row[2] }}</td> <!--SPZ-->
+                    <td>{{ row[3] }}</td> <!--Rok-->
+                    <td>{{ row[4] ~ ' ' ~ row[5]}}</td> <!--Jmeno-->
                     <td class="td_submit"><form action=""><input type="submit" value="Upravit"></form></td>
-                    <td class="td_submit"><form action=""><input style="background-color: red;" type="submit" value="Smazat"></form></td>
+                    <td class="td_submit">
+                        <form action="/admin/delete_car" method="post">
+                            <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ row[0] }}">
+                            <input style="background-color: red;" type="submit" value="Smazat">
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tr>

@@ -254,7 +254,7 @@ def admin_car_list():
     cur = con.cursor()
 
     cur.execute(
-        'SELECT v.model, v.spz, v.rok_vyroby, u.primeni, u.jmeno FROM vozidla v INNER JOIN uzivately u ON v.vlastnik = u.id'
+        'SELECT v.id, v.model, v.spz, v.rok_vyroby, u.primeni, u.jmeno FROM vozidla v INNER JOIN uzivately u ON v.vlastnik = u.id'
     )
     data = cur.fetchall()
 
@@ -296,6 +296,22 @@ def admin_add_car():
             return redirect("/admin/car_list")
         else:
             return render_template("admin_add_car.html", error="Uzivatel s tymto loginem neexistuje!")
+@app.route("/admin/delete_car", methods = ['POST'])
+def admin_delete_car():
+    id = request.form['vehicle_id']
+
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        'DELETE FROM vozidla WHERE id = ?', (id,)
+    )
+
+    con.commit()
+
+    con.close()
+
+    return redirect("/admin/car_list")
 
 @app.route("/admin/service_list")
 @admin_authorization
