@@ -1,0 +1,22 @@
+{% extends 'base_admin_page.html'%}
+{% block content %}
+<h3 class="centered">Pridani auta</h3>
+    {% if error %}
+    <div style="text-align: center;">
+        <strong style="color: red;">{{ error }}</strong>
+    </div>
+    {% endif %}
+<div class="center_all_div">
+    <form class="car_list" action="/admin/add_car" method="post">
+        <label for="owner">Majitel: </label>
+        <input type="text" id="owner" name="owner"><br>
+        <label for="car_model">Model: </label>
+        <input type="text" id="car_model" name="car_model"><br>
+        <label for="spz">SPZ: </label>
+        <input type="text" id="spz" name="spz"><br>
+        <label for="year">Rok: </label>
+        <input type="text" id="year" name="year"><br>
+        <input type="submit">
+    </form>
+</div>
+{% endblock %}

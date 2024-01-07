@@ -148,7 +148,33 @@ input[type=submit]:active {
 
 .center_all_div {
     display: flex;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
     height: 80vh;
+}
+
+.small_grey_text {
+    color: rgb(145, 144, 144);
+    font-size: 14px;
+}
+
+.order input[type=text]{
+    margin-left: 4em;
+}
+
+.order input[type=submit]{
+    margin-top: 3em;
+}
+
+.order label,
+.order input[type=text]{
+    margin-bottom: 3em;
+}
+
+.info_icon{
+    margin-left: 1em;
+}
+
+.info_icon:hover{
+    cursor: pointer;
 }

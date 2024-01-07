@@ -130,7 +130,7 @@ def client_car_list():
     cur = con.cursor()
 
     cur.execute(
-        'SELECT model, spz, rok_vyroby FROM vozidla WHERE vlastnik = ?', (session['user_id'],)
+        'SELECT model, spz, rok_vyroby, id FROM vozidla WHERE vlastnik = ?', (session['user_id'],)
     )
     data = cur.fetchall()
 
@@ -164,7 +164,68 @@ def client_add_car():
 @app.route("/client/order_list")
 @client_authorization
 def client_order_list():
-    return render_template("client_orderlist.html");
+    con = sqlite3.connect('vwa.db')
+    cur = con.cursor()
+
+    cur.execute(
+        """
+            SELECT v.id, v.model, v.spz, v.rok_vyroby, st.stav 
+            FROM vozidla v 
+            INNER JOIN servis s ON v.id = s.vozidlo 
+            INNER JOIN stav_servisu st ON s.id = st.id_servisu
+            WHERE v.vlastnik = ?
+        """,(session['user_id'],)
+    )
+    data = cur.fetchall()
+    con.close()
+
+    return render_template("client_orderlist.html", data=data);
+
+@app.route("/client/create_order", methods=['GET', 'POST'])
+@client_authorization
+def client_make_order():
+    if request.method == 'GET':
+        return redirect('/'+session['user_role'])
+    if request.method == 'POST':
+        vehicle_id = request.form['vehicle_id']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'SELECT id, model FROM vozidla WHERE id = ?',(vehicle_id,)
+        )
+
+        data = cur.fetchall()
+
+        con.close()
+
+        vehicle = data[0]
+
+        return render_template("client_make_order.html", data=vehicle)
+
+@app.route("/client/place_order", methods=['POST'])
+@client_authorization
+def client_place_order():
+    if request.method == 'POST':
+        vehicle_id = request.form['id']
+        problem = request.form['problem']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'INSERT INTO servis(vozidlo, problem) VALUES(?,?)',(vehicle_id, problem)
+        )
+        cur.execute(
+            'INSERT INTO stav_servisu(id_servisu, stav) VALUES(last_insert_rowid(), ?)', ('objednano',)
+        )
+        con.commit()
+
+        con.close()
+
+        return redirect('/client')
+    
 
 @app.route("/mechanic")
 @mechanic_authorization

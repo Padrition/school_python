@@ -41,8 +41,9 @@ CREATE TABLE IF NOT EXISTS typ_operace(
 
 CREATE TABLE IF NOT EXISTS servis(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    datum DATETIME NOT NULL,
+    datum DATETIME DEFAULT CURRENT_TIMESTAMP,
     vozidlo INTEGER NOT NULL,
+    problem TEXT,
     FOREIGN KEY(vozidlo) REFERENCES vozidla(id)
 );
 
@@ -60,10 +61,10 @@ CREATE TABLE IF NOT EXISTS operace(
 
 CREATE TABLE IF NOT EXISTS stav_servisu(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    id_operace INTEGER NOT NULL,
+    id_servisu INTEGER NOT NULL,
     stav TEXT NOT NULL,
-    dokonceni DATETIME NOT NULL,
-    FOREIGN KEY(id_operace) REFERENCES operace(id)
+    dokonceni DATETIME,
+    FOREIGN KEY(id_servisu) REFERENCES servis(id)
 );
 
 CREATE TABLE IF NOT EXISTS notifikace(

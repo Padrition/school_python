@@ -16,7 +16,12 @@
                 <td>{{ row[0] }}</td> <!--Model-->
                 <td>{{ row[1] }}</td> <!--spz-->
                 <td>{{ row[2] }}</td> <!--rok-->
-                <td class="td_submit"><form action=""><input type="submit" value="Objednat servis"></form></td>
+                <td class="td_submit">
+                    <form action="/client/create_order" method="post">
+                        <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ row[3] }}">
+                        <input type="submit" value="Objednat servis">
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </table>

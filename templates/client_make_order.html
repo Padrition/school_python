@@ -1,0 +1,14 @@
+{% extends 'base_client_page.html' %}
+{% block content %}
+<h3 class="centered">Objednani servisu</h3>
+<div class="center_all_div">
+        <form class="order" action="/client/place_order" method="post">
+            <label for="model">Model: </label>
+            <input type="text" name="model" id="model" value="{{ data[1] }}" readonly><br>
+            <label for="problem">Popis problemu: </label><br>
+            <textarea name="problem" id="problem" cols="30" rows="10" style="resize: none;"></textarea><br>
+            <input type="hidden" name="id" value="{{ data[0] }}">
+            <input type="submit">
+        </form>
+</div>
+{% endblock %}

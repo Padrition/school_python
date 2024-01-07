@@ -1,7 +1,7 @@
 {% extends 'base_client_page.html'%}
 {% block content%}
 <div>
-    <table class="tb_center th_centered_border">
+    <table class="tb_center th_border tb_color_even_tr">
         <tr>
             <th>Model</th>
             <th>SPZ</th>
@@ -9,6 +9,15 @@
             <th>Zpravy</th>
             <th>Stav</th>
         </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td><img class="info_icon" src="{{url_for('static', filename='info.png')}}" width="30px" alt=""></td>
+                <td>{{ row[4] }}</td>
+            </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock%}
