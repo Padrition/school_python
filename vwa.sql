@@ -1,3 +1,27 @@
+SAVEPOINT start_transaction;
+
+PRAGMA foreign_keys=off;
+
+CREATE TABLE IF NOT EXISTS backup_uzivately AS SELECT * FROM uzivately;
+CREATE TABLE IF NOT EXISTS backup_vozidla AS SELECT * FROM vozidla;
+CREATE TABLE IF NOT EXISTS backup_role AS SELECT * FROM role;
+CREATE TABLE IF NOT EXISTS backup_role_uzivately AS SELECT * FROM role_uzivately;
+CREATE TABLE IF NOT EXISTS backup_typ_operace AS SELECT * FROM typ_operace;
+CREATE TABLE IF NOT EXISTS backup_servis AS SELECT * FROM servis;
+CREATE TABLE IF NOT EXISTS backup_operace AS SELECT * FROM operace;
+CREATE TABLE IF NOT EXISTS backup_stav_servisu AS SELECT * FROM stav_servisu;
+CREATE TABLE IF NOT EXISTS backup_notifikace AS SELECT * FROM notifikace;
+
+DROP TABLE IF EXISTS uzivately;
+DROP TABLE IF EXISTS vozidla;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS role_uzivately;
+DROP TABLE IF EXISTS typ_operace;
+DROP TABLE IF EXISTS servis;
+DROP TABLE IF EXISTS operace;
+DROP TABLE IF EXISTS stav_servisu;
+DROP TABLE IF EXISTS notifikace;
+
 CREATE TABLE IF NOT EXISTS uzivately(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     jmeno TEXT NOT NULL,
@@ -44,7 +68,7 @@ CREATE TABLE IF NOT EXISTS servis(
     datum DATETIME DEFAULT CURRENT_TIMESTAMP,
     vozidlo INTEGER NOT NULL,
     problem TEXT,
-    FOREIGN KEY(vozidlo) REFERENCES vozidla(id)
+    FOREIGN KEY(vozidlo) REFERENCES vozidla(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS operace(
@@ -54,8 +78,8 @@ CREATE TABLE IF NOT EXISTS operace(
     typ TEXT NOT NULL,
     provadi INTEGER NOT NULL,
     soucast_servisu INTEGER NOT NULL,
-    FOREIGN KEY(soucast_servisu) REFERENCES servis(id),
-    FOREIGN KEY(provadi) REFERENCES uzivately(id),
+    FOREIGN KEY(soucast_servisu) REFERENCES servis(id) ON DELETE CASCADE,
+    FOREIGN KEY(provadi) REFERENCES uzivately(id) ON DELETE CASCADE,
     FOREIGN KEY(typ) REFERENCES typ_operace(nazev)
 );
 
@@ -64,7 +88,7 @@ CREATE TABLE IF NOT EXISTS stav_servisu(
     id_servisu INTEGER NOT NULL,
     stav TEXT NOT NULL,
     dokonceni DATETIME,
-    FOREIGN KEY(id_servisu) REFERENCES servis(id)
+    FOREIGN KEY(id_servisu) REFERENCES servis(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS notifikace(
@@ -72,8 +96,32 @@ CREATE TABLE IF NOT EXISTS notifikace(
     id_stav INTEGER NOT NULL,
     datum DATETIME NOT NULL,
     zprava TEXT NOT NULL,
-    FOREIGN KEY(id_stav) REFERENCES stav_servisu(id)
+    FOREIGN KEY(id_stav) REFERENCES stav_servisu(id) ON DELETE CASCADE
 );
+
+INSERT INTO uzivately SELECT * FROM backup_uzivately;
+INSERT INTO vozidla SELECT * FROM backup_vozidla;
+INSERT INTO role SELECT * FROM backup_role;
+INSERT INTO role_uzivately SELECT * FROM backup_role_uzivately;
+INSERT INTO typ_operace SELECT * FROM backup_typ_operace;
+INSERT INTO servis SELECT * FROM backup_servis;
+INSERT INTO operace SELECT * FROM backup_operace;
+INSERT INTO stav_servisu SELECT * FROM backup_stav_servisu;
+INSERT INTO notifikace SELECT * FROM backup_notifikace;
+
+DROP TABLE IF EXISTS backup_uzivately;
+DROP TABLE IF EXISTS backup_vozidla;
+DROP TABLE IF EXISTS backup_role;
+DROP TABLE IF EXISTS backup_role_uzivately;
+DROP TABLE IF EXISTS backup_typ_operace;
+DROP TABLE IF EXISTS backup_servis;
+DROP TABLE IF EXISTS backup_operace;
+DROP TABLE IF EXISTS backup_stav_servisu;
+DROP TABLE IF EXISTS backup_notifikace;
+
+PRAGMA foreign_keys=on;
+
+RELEASE start_transaction;
 
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('client', 'Obycejny user');
 INSERT OR IGNORE INTO role (nazev, popis) VALUES ('mechanic', 'Obycejny mechanic');
