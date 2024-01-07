@@ -1,0 +1,28 @@
+{% extends 'base_admin_page.html' %}
+{% block content %}
+<h3 class="centered">Pridani terminu</h3>
+<div class="center_all_div">
+    <form class="order" action="" method="post">
+        <div class="form_group">
+            <label for="model">Model:</label>
+            <input type="text" name="model" id="model" value="" readonly>
+        </div>
+        <div class="form_group">
+            <label for="license">SPZ:</label>
+            <input type="text" name="license" id="license" value="" readonly>
+        </div>
+        <div class="form_group">
+            <label for="oprava">Typ opravy:</label>
+        </div>
+        <input type="radio" name="r1" id="r1"><label class="small_grey_text" for="r1">Technicka kontrola</label>
+        <input type="radio" name="r2" id="r2"><label class="small_grey_text" for="r2">Oprava</label>
+        <input type="radio" name="r3" id="r3"><label class="small_grey_text" for="r3">Likvidace</label>
+        <div class="form_group">
+            <label for="mechanic">Technik:</label>
+            <select name="mechanic" id="mechanic">
+                
+            </select>
+        </div>
+    </form>
+</div>
+{% endblock %}

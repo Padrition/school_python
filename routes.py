@@ -337,6 +337,7 @@ def admin_car_edit():
 
 
 @app.route("/admin/delete_car", methods = ['POST'])
+@admin_authorization
 def admin_delete_car():
     id = request.form['vehicle_id']
 
@@ -376,8 +377,30 @@ def admin_order_list():
 
     return render_template("admin_orderlist.html", data=data);
 
-@app.route("/admin/user_list")
+@app.route("/admin/order_confirmation", methods=['GET','POST'])
+def admin_order_confirmation():
+    if request.method == 'GET':
+        id = request.args.get('id')
+
+        return render_template("admin_order_confirmation.html")
+
+@app.route("/admin/user_list", methods=['GET', 'POST'])
 @admin_authorization
 def admin_user_lsit():
-    return render_template("admin_userlist.html")
+    if request.method == 'GET':
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
 
+        cur.execute(
+            """
+            SELECT u.id, u.jmeno, u.primeni, u.login ,ur.nazev
+            FROM uzivately u
+            INNER JOIN role_uzivately ur
+            ON u.id = ur.id_uzivatele
+            """
+        )
+        users = cur.fetchall()
+
+        con.close()
+
+        return render_template("admin_userlist.html", users=users)

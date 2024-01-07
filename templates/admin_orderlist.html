@@ -18,8 +18,18 @@
                 <td>{{ row[3] }}</td>
                 <td>{{ row[4] }}</td>
                 <td class="td_description">{{ row[5] }}</td>
-                <td class="td_submit"><form action=""><input type="submit" value="Pridat termin"></form></td>
-                <td class="td_submit"><form action=""><input style="background-color: red;" type="submit" value="Smazat"></form></td>
+                <td class="td_submit">
+                    <form action="/admin/order_confirmation" method="get">
+                        <input type="hidden" name="id" id="id" value="{{ data[0] }}">
+                        <input type="submit" value="Pridat termin">
+                    </form>
+                </td>
+                <td class="td_submit">
+                    <form action="/admin/delete_order">
+                        <input type="hidden" name="id" id="id" value="{{ data[0] }}">
+                        <input style="background-color: red;" type="submit" value="Smazat">
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </table>
