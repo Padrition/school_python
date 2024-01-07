@@ -296,6 +296,46 @@ def admin_add_car():
             return redirect("/admin/car_list")
         else:
             return render_template("admin_add_car.html", error="Uzivatel s tymto loginem neexistuje!")
+
+@app.route("/admin/car_edit", methods=['GET','POST'])
+@admin_authorization        
+def admin_car_edit():
+    if request.method == 'GET':
+        id = request.args.get('vehicle_id')
+
+        con = sqlite3.connect('vwa.db')
+        cur = con.cursor()
+        
+        cur.execute(
+            'SELECT id, model, spz, rok_vyroby FROM vozidla WHERE id = ?',(id,)
+        )
+        data = cur.fetchone()
+
+        con.close()
+
+        return render_template('admin_car_edit.html', data=data)
+
+    if request.method == 'POST':
+        id = request.form['id']
+        model = request.form['model']
+        license = request.form['license']
+        year = request.form['year']
+
+        con = sqlite3.connect('vwa.db')
+        cur = con.cursor()
+
+        cur.execute(
+            'UPDATE vozidla SET model = ?, spz = ?, rok_vyroby = ? WHERE id = ?',(model, license, year, id)
+        )
+
+        con.commit()
+
+        con.close()
+
+        return redirect("/admin/car_list")
+
+
+
 @app.route("/admin/delete_car", methods = ['POST'])
 def admin_delete_car():
     id = request.form['vehicle_id']

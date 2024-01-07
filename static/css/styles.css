@@ -189,3 +189,23 @@ input[type=submit]:active {
 .td_description{
     max-width: 300px;
 }
+
+.form_group{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form_group label{
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.form_group input{
+    flex: 1;
+}
+
+.center_all_div input[type=submit]{
+    margin-left: 5em;
+}

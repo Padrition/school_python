@@ -19,7 +19,12 @@
                     <td>{{ row[2] }}</td> <!--SPZ-->
                     <td>{{ row[3] }}</td> <!--Rok-->
                     <td>{{ row[4] ~ ' ' ~ row[5]}}</td> <!--Jmeno-->
-                    <td class="td_submit"><form action=""><input type="submit" value="Upravit"></form></td>
+                    <td class="td_submit">
+                        <form action="/admin/car_edit" method="get">
+                            <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ row[0] }}">
+                            <input type="submit" value="Upravit">
+                        </form>
+                    </td>
                     <td class="td_submit">
                         <form action="/admin/delete_car" method="post">
                             <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ row[0] }}">
