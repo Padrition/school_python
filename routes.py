@@ -442,3 +442,57 @@ def admin_user_add():
 
         return redirect("/admin/user_list")
 
+@app.route("/admin/user_edit", methods=['GET','POST'])
+@admin_authorization
+def admin_user_edit():
+    if request.method == 'GET':
+        id = request.args.get('id')
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            """
+            SELECT u.id, u.jmeno, u.primeni, u.login ,ur.nazev
+            FROM uzivately u
+            INNER JOIN role_uzivately ur
+            ON u.id = ur.id_uzivatele
+            WHERE u.id = ?
+            """,(id,)
+        )
+        user = cur.fetchone()
+
+        cur.execute(
+            'SELECT nazev FROM role'
+        )
+        roles = cur.fetchall()
+
+        con.close()
+
+        return render_template("admin_user_edit.html", user=user, roles=roles)
+
+    if request.method == 'POST':
+        id = request.form['id']
+        fname = request.form['fname']
+        lname = request.form['lname']
+        login = request.form['login']
+        role = request.form['role']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'UPDATE role_uzivately SET platnost = 0 WHERE id_uzivatele = ? AND platnost = 1',(id,)
+        )
+        cur.execute(
+            'UPDATE uzivately SET jmeno = ?, primeni = ?, login = ? WHERE id = ?',(fname, lname, login, id)
+        )
+        cur.execute(
+            'INSERT INTO role_uzivately(platnost, nazev, id_uzivatele, pridelil) VALUES(1,?,?,?)',(role, id, session['user_id'])
+        )
+
+        con.commit()
+
+        con.close()
+
+        return redirect("/admin/user_list")
