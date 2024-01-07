@@ -131,22 +131,6 @@ input[type=submit]:active {
     text-align: center;
 }
 
-.car_list{
-    text-align: right;
-}
-
-.car_list label{
-    text-align: left;
-    display: inline-block;
-    width: 100px;
-    margin-right: 10px;
-    margin-top: 20px;
-}
-
-.car_list input[type=submit]{
-    margin-top: 2em;
-}
-
 .center_all_div {
     display: flex;
     justify-content:center;
@@ -193,7 +177,7 @@ input[type=submit]:active {
 .form_group{
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 1px;
 }
 
 .form_group label{
