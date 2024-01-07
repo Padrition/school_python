@@ -404,3 +404,41 @@ def admin_user_lsit():
         con.close()
 
         return render_template("admin_userlist.html", users=users)
+
+@app.route("/admin/user_add", methods=['GET','POST'])
+@admin_authorization
+def admin_user_add():
+    if request.method == 'GET':
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'SELECT nazev FROM role'
+        )
+        roles = cur.fetchall()
+
+        con.close()
+
+        return render_template("admin_user_add.html", roles=roles)
+
+    if request.method == 'POST':
+        fname = request.form['fname']
+        lname = request.form['lname']
+        login = request.form['login']
+        role = request.form['role']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'INSERT INTO uzivately(jmeno, primeni, login, heslo, vkladan) VALUES(?,?,?,?,?)',(fname, lname, login, login, session['user_id'])
+        )
+        cur.execute(
+            'INSERT INTO role_uzivately (platnost, nazev, id_uzivatele) VALUES(1, ?, last_insert_rowid())',(role,)
+        )
+        con.commit()
+
+        con.close()
+
+        return redirect("/admin/user_list")
+
