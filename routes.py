@@ -240,7 +240,21 @@ def mechanic_car_list():
 @app.route("/manager")
 @manager_authorization
 def manager_screen():
-    return render_template("base_manager_page.html")
+    return redirect('/manager/car_list')
+
+@app.route('/manager/car_list')
+def manager_car_list():
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        'SELECT v.id, v.model, v.spz, v.rok_vyroby, u.primeni, u.jmeno FROM vozidla v INNER JOIN uzivately u ON v.vlastnik = u.id'
+    )
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template('manager_car_list.html', data=data)
 
 @app.route("/admin")
 @admin_authorization
