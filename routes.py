@@ -280,6 +280,26 @@ def manager_service_list():
 
     return render_template("manager_servicelist.html", data=data)
 
+@app.route('/manager/orders')
+@manager_authorization
+def manager_order_list():
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.id, v.model, v.spz, v.rok_vyroby, v.vlastnik, s.problem FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        LEFT JOIN operace o ON s.id = o.soucast_servisu
+        WHERE o.id IS NULL
+        """
+    )
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template("manager_orderlist.html", data=data);
+
 @app.route("/admin")
 @admin_authorization
 def admin():
