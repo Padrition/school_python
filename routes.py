@@ -360,7 +360,26 @@ def admin_delete_car():
 @app.route("/admin/service_list")
 @admin_authorization
 def admin_service_list():
-    return render_template("admin_servicelist.html")
+
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.id, v.model, v.spz, v.rok_vyroby, u.jmeno, u.primeni, ss.stav FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        INNER JOIN operace o ON s.id = o.soucast_servisu
+        INNER JOIN uzivately u ON u.id = o.provadi
+        INNER JOIN stav_servisu ss ON ss.id_servisu = s.id
+        WHERE ss.stav IS NOT 'dokonceno'
+        """
+    )
+
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template("admin_servicelist.html", data=data)
 
 @app.route("/admin/order_list")
 @admin_authorization
@@ -446,6 +465,10 @@ def admin_order_confirmation():
             'INSERT INTO operace(cena, soucastky, typ, provadi, soucast_servisu, datum) VALUES(0, " ", ?,?,?,?)',(repair_type, mechanic, servis[0], date)
         )
 
+        cur.execute(
+            'UPDATE stav_servisu SET stav = "Termin rezervovan" WHERE id_servisu = ?',(servis[0])
+        )
+
         con.commit()
 
         con.close()
@@ -465,6 +488,7 @@ def admin_user_lsit():
             FROM uzivately u
             INNER JOIN role_uzivately ur
             ON u.id = ur.id_uzivatele
+            WHERE ur.platnost = 1
             """
         )
         users = cur.fetchall()
@@ -573,6 +597,14 @@ def admin_delete_user():
 
         con = sqlite3.connect("vwa.db")
         cur = con.cursor()
+
+        cur.execute(
+            'DELETE FROM vozidla WHERE vlastnik = ?',(id,)
+        )
+
+        cur.execute(
+            'DELETE FROM role_uzivately WHERE id_uzivatele = ?',(id,)
+        )
 
         cur.execute(
             'DELETE FROM uzivately WHERE id = ?', (id,)
