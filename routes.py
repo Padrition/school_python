@@ -235,7 +235,25 @@ def mechanic_screen():
 @app.route("/mechanic/car_list")
 @mechanic_authorization
 def mechanic_car_list():
-    return render_template("mechanic_car_list.html")
+    con = sqlite3.connect('vwa.db')
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        select v.id, v.model, v.spz, v.rok_vyroby, o.datum
+        FROM vozidla v
+        INNER JOIN servis s
+        ON v.id = s.vozidlo
+        INNER JOIN operace o
+        ON o.soucast_servisu = s.id
+        WHERE o.provadi = ?;
+        """,(session['user_id'],)
+    )
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template("mechanic_car_list.html", data=data)
 
 @app.route("/manager")
 @manager_authorization

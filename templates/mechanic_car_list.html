@@ -1,14 +1,27 @@
 {% extends 'base_mechanic_page.html'%}
 {% block content %}
 <div>
-    <table class="tb_center th_centered_border">
+    <table class="tb_center th_border tb_color_even_tr">
         <tr>
             <th>Model</th>
             <th>SPZ</th>
             <th>Rok</th>
             <th>Datum</th>
-            <th>Poslat zpravu</th>
+            <th></th>
         </tr>
+        {% for row in data %}
+            <tr>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td class="td_submit">
+                    <form action="">
+                        <input type="submit" value="Poslat zpravu">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}
