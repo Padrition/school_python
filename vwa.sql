@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS vozidla(
     model TEXT NOT NULL, 
     rok_vyroby INTEGER NOT NULL,
     vlastnik INTEGER NOT NULL,
-    FOREIGN KEY(vlastnik) REFERENCES uzivately(id)
+    FOREIGN KEY(vlastnik) REFERENCES uzivately(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS role(

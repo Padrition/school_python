@@ -496,3 +496,22 @@ def admin_user_edit():
         con.close()
 
         return redirect("/admin/user_list")
+
+@app.route("/admin/delete_user", methods=['POST'])
+@admin_authorization
+def admin_delete_user():
+    if request.method == 'POST':
+        id = request.form['id']
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            'DELETE FROM uzivately WHERE id = ?', (id,)
+        )
+
+        con.commit()
+
+        con.close()
+
+        return redirect('/admin/user_list')
