@@ -300,6 +300,20 @@ def manager_order_list():
 
     return render_template("manager_orderlist.html", data=data);
 
+@app.route('/manager/statistics')
+def manager_statistics():
+    con = sqlite3.connect('vwa.db')
+    cur = con.cursor()
+    
+    cur.execute(
+        'SELECT t.nazev, COUNT(o.typ)  FROM typ_operace t LEFT JOIN operace o ON t.nazev = o.typ GROUP BY t.nazev'
+    )
+    total = cur.fetchall()
+
+    con.close()
+
+    return render_template('manager_statistics.html', total=total)
+
 @app.route("/admin")
 @admin_authorization
 def admin():
