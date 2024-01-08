@@ -615,3 +615,19 @@ def admin_delete_user():
         con.close()
 
         return redirect('/admin/user_list')
+
+@app.route('/admin/statistics')
+@admin_authorization
+def admin_statistics():
+    con = sqlite3.connect('vwa.db')
+    cur = con.cursor()
+    
+    cur.execute(
+        'SELECT t.nazev, COUNT(o.typ)  FROM typ_operace t LEFT JOIN operace o ON t.nazev = o.typ GROUP BY t.nazev'
+    )
+    total = cur.fetchall()
+
+    con.close()
+
+    return render_template('admin_statistics.html', total=total)
+

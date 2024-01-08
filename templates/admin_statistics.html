@@ -1,0 +1,24 @@
+{% extends 'base_admin_page.html'%}
+{% block content %}
+<h3 class="centered">Statistiky</h3>
+<div>
+    <table class="tb_center th_border tb_color_even_tr"">
+        <tr>
+            <th></th>
+            <th>Celkem</th>
+            <th>Rok</th>
+            <th>Mesic</th>
+            <th>Tyden</th>
+        </tr>
+        {% for row in total %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
