@@ -60,7 +60,7 @@ def authorization():
             cur = con.cursor()
 
             cur.execute(
-                'SELECT nazev FROM role_uzivately WHERE id_uzivatele = ?', (session['user_id'],)
+                'SELECT nazev FROM role_uzivately WHERE id_uzivatele = ? AND platnost = 1', (session['user_id'],)
                 )
             role = cur.fetchone()
 
