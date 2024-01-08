@@ -243,6 +243,7 @@ def manager_screen():
     return redirect('/manager/car_list')
 
 @app.route('/manager/car_list')
+@manager_authorization
 def manager_car_list():
     con = sqlite3.connect("vwa.db")
     cur = con.cursor()
@@ -255,6 +256,29 @@ def manager_car_list():
     con.close()
 
     return render_template('manager_car_list.html', data=data)
+
+@app.route('/manager/service_list')
+@manager_authorization
+def manager_service_list():
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.id, v.model, v.spz, v.rok_vyroby, u.jmeno, u.primeni, ss.stav FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        INNER JOIN operace o ON s.id = o.soucast_servisu
+        INNER JOIN uzivately u ON u.id = o.provadi
+        INNER JOIN stav_servisu ss ON ss.id_servisu = s.id
+        WHERE ss.stav IS NOT 'dokonceno'
+        """
+    )
+
+    data = cur.fetchall()
+
+    con.close()
+
+    return render_template("manager_servicelist.html", data=data)
 
 @app.route("/admin")
 @admin_authorization
