@@ -303,17 +303,20 @@ def admin_car_edit():
     if request.method == 'GET':
         id = request.args.get('vehicle_id')
 
-        con = sqlite3.connect('vwa.db')
-        cur = con.cursor()
-        
-        cur.execute(
-            'SELECT id, model, spz, rok_vyroby FROM vozidla WHERE id = ?',(id,)
-        )
-        data = cur.fetchone()
+        if id:
+            con = sqlite3.connect('vwa.db')
+            cur = con.cursor()
+            
+            cur.execute(
+                'SELECT id, model, spz, rok_vyroby FROM vozidla WHERE id = ?',(id,)
+            )
+            data = cur.fetchone()
 
-        con.close()
+            con.close()
 
-        return render_template('admin_car_edit.html', data=data)
+            return render_template('admin_car_edit.html', data=data)
+        else:
+            return redirect('/admin/car_list')
 
     if request.method == 'POST':
         id = request.form['id']
@@ -369,6 +372,8 @@ def admin_order_list():
         """
         SELECT v.id, v.model, v.spz, v.rok_vyroby, v.vlastnik, s.problem FROM vozidla v
         INNER JOIN servis s ON v.id = s.vozidlo
+        LEFT JOIN operace o ON s.id = o.soucast_servisu
+        WHERE o.id IS NULL
         """
     )
     data = cur.fetchall()
@@ -382,7 +387,70 @@ def admin_order_confirmation():
     if request.method == 'GET':
         id = request.args.get('id')
 
-        return render_template("admin_order_confirmation.html")
+        if id:
+            con = sqlite3.connect("vwa.db")
+            cur = con.cursor()
+
+            cur.execute(
+                """
+                SELECT u.id, u.jmeno, u.primeni
+                FROM uzivately u
+                INNER JOIN role_uzivately r
+                ON u.id = r.id_uzivatele
+                WHERE r.nazev = 'mechanic'
+                """
+            )
+            thechnicians = cur.fetchall()
+
+            cur.execute(
+                'SELECT id, model, spz FROM vozidla WHERE id = ?',(id,)
+            )
+            vehicle = cur.fetchone()
+
+            cur.execute(
+                'SELECT nazev FROM typ_operace'
+            )
+            repair = cur.fetchall()
+
+            con.close()
+
+            repair = [item for sublist in repair for item in sublist]
+
+            return render_template("admin_order_confirmation.html", thechnicians=thechnicians, vehicle=vehicle, repair=repair)
+        else:
+            return redirect("/admin/order_list")
+    
+    if request.method == 'POST':
+        vehicle_id = request.form['id']
+        mechanic = request.form['mechanic']
+        date = request.form['date']
+        time = request.form['time']
+        repair_type = request.form['repair_type']
+
+        date = date + ' ' + time+':00:00'
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            """
+            SELECT s.id FROM vozidla v
+            INNER JOIN servis s ON v.id = s.vozidlo
+            WHERE v.id = ?
+            """,(vehicle_id,)
+        )
+
+        servis = cur.fetchone()
+
+        cur.execute(
+            'INSERT INTO operace(cena, soucastky, typ, provadi, soucast_servisu, datum) VALUES(0, " ", ?,?,?,?)',(repair_type, mechanic, servis[0], date)
+        )
+
+        con.commit()
+
+        con.close()
+
+        return redirect('/admin/order_list')
 
 @app.route("/admin/user_list", methods=['GET', 'POST'])
 @admin_authorization

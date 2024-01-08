@@ -2,26 +2,53 @@
 {% block content %}
 <h3 class="centered">Pridani terminu</h3>
 <div class="center_all_div">
-    <form class="order" action="" method="post">
+    <form class="order" action="/admin/order_confirmation" method="post">
+        <input type="hidden" name="id" value="{{ vehicle[0] }}">
         <div class="form_group">
             <label for="model">Model:</label>
-            <input type="text" name="model" id="model" value="" readonly>
+            <input type="text" name="model" id="model" value="{{ vehicle[1] }}" readonly>
         </div>
         <div class="form_group">
             <label for="license">SPZ:</label>
-            <input type="text" name="license" id="license" value="" readonly>
+            <input type="text" name="license" id="license" value="{{ vehicle[2] }}" readonly>
         </div>
         <div class="form_group">
-            <label for="oprava">Typ opravy:</label>
         </div>
-        <input type="radio" name="r1" id="r1"><label class="small_grey_text" for="r1">Technicka kontrola</label>
-        <input type="radio" name="r2" id="r2"><label class="small_grey_text" for="r2">Oprava</label>
-        <input type="radio" name="r3" id="r3"><label class="small_grey_text" for="r3">Likvidace</label>
+        <div class="radio_group">
+            <label for="oprava">Typ opravy:</label>
+            <input type="radio" name="repair_type" id="r1" value="{{ repair[0] }}"><label class="small_grey_text" for="r1">{{ repair[0] }}</label>
+            <input type="radio" name="repair_type" id="r2" value="{{ repair[1] }}"><label class="small_grey_text" for="r2">{{ repair[1] }}</label>
+            <input type="radio" name="repair_type" id="r3" value="{{ repair[2] }}"><label class="small_grey_text" for="r3">{{ repair[2] }}</label>
+        </div>
         <div class="form_group">
             <label for="mechanic">Technik:</label>
             <select name="mechanic" id="mechanic">
-                
+                {% for technic in thechnicians%}
+                <option value="{{ technic[0] }}">{{ technic[2] ~ ' ' ~ technic[1]}}</option>
+                {% endfor %}
             </select>
+        </div>
+        <div class="form_group">
+            <label for="date">Datum:</label>
+            <input type="date" name="date" id="date" required>
+        </div>
+        <div class="form_group">
+            <label for="time">Cas:</label>
+            <select name="time" id="time">
+                <option value="9">9:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+            </select>
+        </div>
+        <div class="form_group">
+            <input type="submit" value="Pridat">
         </div>
     </form>
 </div>

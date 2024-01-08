@@ -144,7 +144,9 @@ input[type=submit]:active {
 }
 
 .order input[type=text],
-.order select{
+.order select,
+.order input[type=date],
+.order input[type=radio]:first-of-type{
     margin-left: 4em;
 }
 
@@ -154,7 +156,8 @@ input[type=submit]:active {
 
 .order label,
 .order input[type=text],
-.order select{
+.order select,
+.order input[type=date]{
     margin-bottom: 3em;
 }
 
@@ -179,7 +182,6 @@ input[type=submit]:active {
 .form_group{
     display: flex;
     align-items: center;
-    margin-bottom: 1px;
 }
 
 .form_group label{
@@ -192,6 +194,6 @@ input[type=submit]:active {
     flex: 1;
 }
 
-.center_all_div input[type=submit]{
-    margin-left: 5em;
+.radio_group{
+    margin-bottom: 3em;
 }

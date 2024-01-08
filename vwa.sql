@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS operace(
     typ TEXT NOT NULL,
     provadi INTEGER NOT NULL,
     soucast_servisu INTEGER NOT NULL,
+    datum DATETIME,
     FOREIGN KEY(soucast_servisu) REFERENCES servis(id) ON DELETE CASCADE,
     FOREIGN KEY(provadi) REFERENCES uzivately(id) ON DELETE CASCADE,
     FOREIGN KEY(typ) REFERENCES typ_operace(nazev)
