@@ -1,8 +1,26 @@
 {% extends 'base_manager_page.html' %}
 {% block content %}
+<script>
+    function validateForm() {
+        var model = document.getElementById{"model"}.value;
+        var license = document.getElementById{"license"}.value;
+        var year = document.getElementById{"year"}.value;
+
+        if (model === "" || license === "" || year === "") {
+            var errorMessage = document.getElementById("error_message");
+            errorMessage.innerHTML = "Doplnte vsechny udaje o aute!";
+            errorMessage.style.color = "red";
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
 <h3 class="centered">Uprava vozidla</h3>
+<p class = centered>id="error"</p>
 <div class="center_all_div">
-    <form class="order" action="/manager/car_edit" method="post">
+    <form class="order" action="/manager/car_edit" method="post" onsubmit="return validateForm">
         <input type="hidden" name="id" id="id" value="{{ data[0] }}">
         <div class="form_group">
             <label for="model">Model: </label>
