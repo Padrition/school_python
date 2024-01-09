@@ -384,4 +384,28 @@ input[type=submit]:active {
             margin-bottom: 5px;
         }
     }
+    .order-table {
+        width: 100%;
+    }
+
+    .th_border th {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid black;
+    }
+
+    .tb_color_even_tr tr:nth-child(even) {
+        background-color: rgb(222, 222, 222);
+    }
+
+    .center_all_div {
+        overflow-x: auto;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .order-table {
+            overflow: auto;
+        }
+    }
+
 }
