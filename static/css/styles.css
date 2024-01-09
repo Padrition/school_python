@@ -339,5 +339,49 @@ input[type=submit]:active {
         }
     }
 
-
+    .order-form {
+        text-align: center;
+    }
+    
+    .form_group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .form_group label {
+        width: 150px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    
+    .form_group input {
+        flex: 1;
+    }
+    
+    .notification-table {
+        width: 100%;
+    }
+    
+    .th_border th {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid black;
+    }
+    
+    .tb_color_even_tr tr:nth-child(even) {
+        background-color: rgb(222, 222, 222);
+    }
+    
+    @media only screen and (max-width: 768px) {
+        .form_group {
+            flex-direction: column;
+        }
+    
+        .form_group label {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+    }
 }
