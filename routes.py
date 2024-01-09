@@ -370,6 +370,42 @@ def manager_car_list():
 
     return render_template('manager_car_list.html', data=data)
 
+@app.route('/manager/notification', methods=['POST'])
+@manager_authorization
+def manager_notification():
+    id = request.form['stav_id']
+
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.model FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        INNER JOIN stav_servisu st ON st.id_servisu = s.id
+        WHERE st.id = ?
+        """,(id,)
+    )
+    car = cur.fetchone()
+
+    cur.execute(
+        """
+        SELECT n.datum, n.zprava FROM notifikace n
+        INNER JOIN stav_servisu st ON st.id = n.id_stav
+        WHERE st.id = ?
+        ORDER BY n.datum ASC
+        """,(id,)
+    )
+
+    notifications = cur.fetchall()
+
+    print(id)
+
+    con.close()
+
+    return render_template("manager_notifications.html", car=car, notifications=notifications)
+
+
 @app.route('/manager/car_edit', methods=['GET','POST'])
 @manager_authorization
 def manager_car_edit():
@@ -418,7 +454,7 @@ def manager_service_list():
 
     cur.execute(
         """
-        SELECT v.id, v.model, v.spz, v.rok_vyroby, u.jmeno, u.primeni, ss.stav FROM vozidla v
+        SELECT ss.id, v.model, v.spz, v.rok_vyroby, u.jmeno, u.primeni, ss.stav FROM vozidla v
         INNER JOIN servis s ON v.id = s.vozidlo
         INNER JOIN operace o ON s.id = o.soucast_servisu
         INNER JOIN uzivately u ON u.id = o.provadi
