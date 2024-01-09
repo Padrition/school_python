@@ -1,0 +1,39 @@
+{% extends 'base_client_page.html' %}
+{% block content %}
+<script>
+    function validateForm() {
+        var car_model = document.getElementById("car_model").value;
+        var spz = document.getElementById("spz").value;
+        var year = document.getElementById("year").value;
+
+        if (car_model === "" || spz === "" || year === "") {
+            var errorMessage = document.getElementById("error_message");
+            errorMessage.innerHTML = "Doplňte všechny údaje o autě!";
+            errorMessage.style.color = "red";
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+<h3 class="centered">Přidání auta</h3>
+<p id="error_message" class="centered"></p>
+<div class="center_all_div">
+    <form class="order" action="/client/add_car" method="post" onsubmit="return validateForm()">
+        <div class="form_group">
+            <label for="car_model">Model: </label>
+            <input type="text" id="car_model" name="car_model">
+        </div>
+        <div class="form_group">
+            <label for="spz">SPZ: </label>
+            <input type="text" id="spz" name="spz">
+        </div>
+        <div class="form_group">
+            <label for="year">Rok: </label>
+            <input type="text" id="year" name="year">
+        </div>
+        <div class="form_group"><input type="submit" value="Přidat"></div>
+    </form>
+</div>
+{% endblock %}

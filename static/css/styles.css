@@ -243,4 +243,30 @@ input[type=submit]:active {
     .registration input[type="submit"] {
         margin-top: 2em;
     }
+    
+    .order {
+        text-align: center;
+    }
+    
+    .form_group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .form_group label {
+        width: 100px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    
+    .form_group input {
+        flex: 1;
+    }
+    
+    #error_message {
+        color: red;
+        text-align: center;
+        margin: 0;
+    }
 }
