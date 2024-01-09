@@ -8,7 +8,7 @@
 
         if (model === "" || license === "" || year === "") {
             var errorMessage = document.getElementById("error_message");
-            errorMessage.innerHTML = "Doplnte vsechny sve udaje!";
+            errorMessage.innerHTML = "Doplnte vsechny udaje o aute!";
             errorMessage.style.color = "red";
             return false;
         }
@@ -18,8 +18,8 @@
 </script>
 
 <h3 class="centered">Uprava vozidla</h3>
+<p class = centered>id="error"</p>
 <div class="center_all_div">
-    <p>id="error"</p>
     <form class="order" action="/admin/car_edit" method="post" onsubmit="return validateForm">
         <input type="hidden" name="id" id="id" value="{{ data[0] }}">
         <div class="form_group">
