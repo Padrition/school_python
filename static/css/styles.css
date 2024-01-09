@@ -247,23 +247,23 @@ input[type=submit]:active {
     .order {
         text-align: center;
     }
-    
+
     .form_group {
         display: flex;
         align-items: center;
         margin-bottom: 15px;
     }
-    
+
     .form_group label {
         width: 100px;
         text-align: right;
         margin-right: 10px;
     }
-    
+
     .form_group input {
         flex: 1;
     }
-    
+
     #error_message {
         color: red;
         text-align: center;
@@ -295,25 +295,16 @@ input[type=submit]:active {
         padding-right: 5px;
     }
 
-    @media only screen and (max-width: 768px) {
-        .tb_center {
-            margin: 0;
-        }
-
-        .th_border th {
-            text-align: left;
-        }
+    .tb_center th {
+        text-align: left;
     }
-    
-    
+
     .order-form {
         text-align: center;
     }
 
-    .form_group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
+    .form_group textarea {
+        resize: none;
     }
 
     .form_group label {
@@ -327,85 +318,29 @@ input[type=submit]:active {
         flex: 1;
     }
 
-    @media only screen and (max-width: 768px) {
-        .form_group {
-            flex-direction: column;
-        }
-
-        .form_group label {
-            width: 100%;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-    }
-
-    .order-form {
-        text-align: center;
-    }
-    
     .form_group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
+        flex-direction: column;
     }
-    
+
     .form_group label {
-        width: 150px;
-        text-align: right;
-        margin-right: 10px;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
     }
-    
-    .form_group input {
-        flex: 1;
-    }
-    
+
     .notification-table {
         width: 100%;
     }
-    
-    .th_border th {
-        text-align: center;
-        padding: 8px;
-        border-bottom: 1px solid black;
-    }
-    
-    .tb_color_even_tr tr:nth-child(even) {
-        background-color: rgb(222, 222, 222);
-    }
-    
-    @media only screen and (max-width: 768px) {
-        .form_group {
-            flex-direction: column;
-        }
-    
-        .form_group label {
-            width: 100%;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-    }
+
     .order-table {
         width: 100%;
-    }
-
-    .th_border th {
-        text-align: center;
-        padding: 8px;
-        border-bottom: 1px solid black;
-    }
-
-    .tb_color_even_tr tr:nth-child(even) {
-        background-color: rgb(222, 222, 222);
     }
 
     .center_all_div {
         overflow-x: auto;
     }
 
-    @media only screen and (max-width: 768px) {
-        .order-table {
-            overflow: auto;
-        }
+    .order-table {
+        overflow: auto;
     }
-
 }
