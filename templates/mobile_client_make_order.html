@@ -1,0 +1,22 @@
+{% extends 'base_client_page.html' %}
+{% block content %}
+<h3 class="centered">Objednání servisu</h3>
+<div class="center_all_div">
+    <form class="order-form" action="/client/place_order" method="post">
+        <div class="form_group">
+            <label for="model">Model: </label>
+            <input type="text" name="model" id="model" value="{{ data[1] }}" readonly>
+        </div>
+        <div class="form_group">
+            <label for="problem">Popis problému: </label>
+            <textarea style="resize: none;" name="problem" id="problem" cols="30" rows="10"></textarea>
+        </div>
+        
+        <input type="hidden" name="id" value="{{ data[0] }}">
+
+        <div class="form_group">
+            <input type="submit" value="Objednat">
+        </div>
+    </form>
+</div>
+{% endblock %}
