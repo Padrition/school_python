@@ -243,7 +243,7 @@ input[type=submit]:active {
     .registration input[type="submit"] {
         margin-top: 2em;
     }
-    
+
     .order {
         text-align: center;
     }
@@ -269,4 +269,40 @@ input[type=submit]:active {
         text-align: center;
         margin: 0;
     }
+
+    .add-car-form {
+        text-align: right;
+    }
+
+    .tb_center {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .th_border th {
+        text-align: center;
+        padding: 8px;
+        border-bottom: 1px solid black;
+    }
+
+    .tb_color_even_tr tr:nth-child(even) {
+        background-color: rgb(222, 222, 222);
+    }
+
+    .td_submit {
+        text-align: center;
+        padding-right: 5px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .tb_center {
+            margin: 0;
+        }
+
+        .th_border th {
+            text-align: left;
+        }
+    }
+
 }
