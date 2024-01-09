@@ -1,0 +1,24 @@
+{% extends 'base_manager_page.html' %}
+{% block content %}
+<h3 class="centered">Uprava vozidla</h3>
+<div class="center_all_div">
+    <form class="order" action="/manager/car_edit" method="post">
+        <input type="hidden" name="id" id="id" value="{{ data[0] }}">
+        <div class="form_group">
+            <label for="model">Model: </label>
+            <input type="text" name="model" id="model" value="{{ data[1] }}">
+        </div>
+        <div class="form_group">
+            <label for="license">SPZ: </label>
+            <input type="text" name="license" id="license" value="{{ data[2] }}">
+        </div>
+        <div class="form_group">
+            <label for="year">Rok: </label>
+            <input type="text" name="year" id="year" value="{{ data[3] }}">
+        </div>
+
+        <input type="submit" value="Upravit vozidlo">
+
+    </form>
+</div>
+{% endblock %}

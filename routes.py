@@ -370,6 +370,46 @@ def manager_car_list():
 
     return render_template('manager_car_list.html', data=data)
 
+@app.route('/manager/car_edit', methods=['GET','POST'])
+@manager_authorization
+def manager_car_edit():
+    if request.method == 'GET':
+        id = request.args.get('vehicle_id')
+
+        if id:
+            con = sqlite3.connect('vwa.db')
+            cur = con.cursor()
+            
+            cur.execute(
+                'SELECT id, model, spz, rok_vyroby FROM vozidla WHERE id = ?',(id,)
+            )
+            data = cur.fetchone()
+
+            con.close()
+
+            return render_template('manager_car_edit.html', data=data)
+        else:
+            return redirect('/manager/car_list')
+
+    if request.method == 'POST':
+        id = request.form['id']
+        model = request.form['model']
+        license = request.form['license']
+        year = request.form['year']
+
+        con = sqlite3.connect('vwa.db')
+        cur = con.cursor()
+
+        cur.execute(
+            'UPDATE vozidla SET model = ?, spz = ?, rok_vyroby = ? WHERE id = ?',(model, license, year, id)
+        )
+
+        con.commit()
+
+        con.close()
+
+        return redirect("/manager/car_list")
+
 @app.route('/manager/service_list')
 @manager_authorization
 def manager_service_list():
@@ -597,8 +637,6 @@ def admin_car_edit():
         con.close()
 
         return redirect("/admin/car_list")
-
-
 
 @app.route("/admin/delete_car", methods = ['POST'])
 @admin_authorization
