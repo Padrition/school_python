@@ -213,3 +213,34 @@ input[type=submit]:active {
 .radio_group{
     margin-bottom: 3em;
 }
+
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .topnav img {
+        width: 2em;
+    }
+
+    .registration {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 5%;
+        padding: 1em;
+    }
+
+    .registration h4 {
+        text-align: center;
+    }
+
+    .registration label,
+    .registration input {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+
+    .registration input[type="submit"] {
+        margin-top: 2em;
+    }
+}
