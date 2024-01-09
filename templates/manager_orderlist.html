@@ -18,7 +18,7 @@
                 <td>{{ row[4] }}</td>
                 <td class="td_description">{{ row[5] }}</td>
                 <td class="td_submit">
-                    <form action="/admin/order_confirmation" method="get">
+                    <form action="/manager/order_confirmation" method="get">
                         <input type="hidden" name="id" id="id" value="{{ row[0] }}">
                         <input type="submit" value="Pridat termin">
                     </form>
