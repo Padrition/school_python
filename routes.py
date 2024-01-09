@@ -634,6 +634,42 @@ def admin_add_car():
         else:
             return render_template("admin_add_car.html", error="Uzivatel s tymto loginem neexistuje!")
 
+@app.route('/admin/notification', methods=['POST'])
+@admin_authorization
+def admin_notifications():
+    id = request.form['stav_id']
+
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.model FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        INNER JOIN stav_servisu st ON st.id_servisu = s.id
+        WHERE st.id = ?
+        """,(id,)
+    )
+    car = cur.fetchone()
+
+    cur.execute(
+        """
+        SELECT n.datum, n.zprava FROM notifikace n
+        INNER JOIN stav_servisu st ON st.id = n.id_stav
+        WHERE st.id = ?
+        ORDER BY n.datum ASC
+        """,(id,)
+    )
+
+    notifications = cur.fetchall()
+
+    print(id)
+
+    con.close()
+
+    return render_template("admin_notifications.html", car=car, notifications=notifications)
+
+
 @app.route("/admin/car_edit", methods=['GET','POST'])
 @admin_authorization        
 def admin_car_edit():
@@ -701,7 +737,7 @@ def admin_service_list():
 
     cur.execute(
         """
-        SELECT v.id, v.model, v.spz, v.rok_vyroby, u.jmeno, u.primeni, ss.stav FROM vozidla v
+        SELECT ss.id, v.model, v.spz, v.rok_vyroby, u.jmeno, u.primeni, ss.stav FROM vozidla v
         INNER JOIN servis s ON v.id = s.vozidlo
         INNER JOIN operace o ON s.id = o.soucast_servisu
         INNER JOIN uzivately u ON u.id = o.provadi

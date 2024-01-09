@@ -16,7 +16,12 @@
                 <td>{{ row[2] }}</td>
                 <td>{{ row[3] }}</td>
                 <td>{{ row[4] ~ ' ' ~ row[5] }}</td>
-                <td><img class="info_icon" src="{{url_for('static', filename='info.png')}}" width="30px" alt=""></td>
+                <td>
+                    <form action="/admin/notification" method="post">
+                        <input type="hidden" name="stav_id" id="stav_id" value="{{ row[0] }}">
+                        <input type="image" width="30px" src="{{url_for('static', filename='info.png')}}" alt="submit">
+                    </form>
+                </td>
                 <td>{{ row[6] }}</td>
             </tr>
         {% endfor %}
