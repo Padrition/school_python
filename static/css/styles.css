@@ -136,6 +136,15 @@ input[type=submit]:active {
     justify-content:center;
     align-items: center;
     height: 80vh;
+    flex-wrap: wrap;
+}
+
+.break {
+    width: 100%;
+  }
+
+.table_container{
+    flex:1;
 }
 
 .small_grey_text {

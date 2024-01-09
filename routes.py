@@ -169,7 +169,7 @@ def client_order_list():
 
     cur.execute(
         """
-            SELECT v.id, v.model, v.spz, v.rok_vyroby, st.stav 
+            SELECT st.id, v.model, v.spz, v.rok_vyroby, st.stav
             FROM vozidla v 
             INNER JOIN servis s ON v.id = s.vozidlo 
             INNER JOIN stav_servisu st ON s.id = st.id_servisu
@@ -225,6 +225,39 @@ def client_place_order():
         con.close()
 
         return redirect('/client')
+
+@app.route('/client/notification', methods=['POST'])
+@client_authorization
+def client_get_notifications():
+    id = request.form['stav_id']
+
+    con = sqlite3.connect("vwa.db")
+    cur = con.cursor()
+
+    cur.execute(
+        """
+        SELECT v.model FROM vozidla v
+        INNER JOIN servis s ON v.id = s.vozidlo
+        INNER JOIN stav_servisu st ON st.id_servisu = s.id
+        WHERE st.id = ?
+        """,(id,)
+    )
+    car = cur.fetchone()
+
+    cur.execute(
+        """
+        SELECT n.datum, n.zprava FROM notifikace n
+        INNER JOIN stav_servisu st ON st.id = n.id_stav
+        WHERE st.id = ?
+        ORDER BY n.datum ASC
+        """,(id,)
+    )
+
+    notifications = cur.fetchall()
+
+    con.close()
+
+    return render_template("client_notification.html", car=car, notifications=notifications)
     
 
 @app.route("/mechanic")

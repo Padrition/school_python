@@ -1,0 +1,27 @@
+{% extends 'base_client_page.html' %}
+{% block content %}
+<h3 class="centered">Notifikace</h3>
+<div class="center_all_div">
+    <div class="order">
+        <div class="form_group">
+            <label for="model">Model:</label>
+            <input type="text" name="model" id="model" value="{{ car[0] }}" readonly>
+        </div>
+    </div>
+    <div class="break"></div>
+    <div class="table_container">
+        <table class="tb_center th_border tb_color_even_tr" style="width: 100%;">
+            <tr>
+                <th>Datum</th>
+                <th>Zprava</th>
+            </tr>
+            {% for n in notifications%}
+                <tr>
+                    <td>{{ n[0] }}</td>
+                    <td>{{ n[1] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
