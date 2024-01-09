@@ -1,0 +1,32 @@
+{% extends 'base_mechanic_page.html' %}
+{% block content %}
+<h3 class="centered">Poslat notifikaci</h3>
+<div class="center_all_div">
+    <form class="order" action="/mechanic/notification" method="post">
+        <div class="form_group">
+            <label for="model">Model:</label>
+            <input type="text" name="model" id="model" value="{{ data[1] }}" readonly>
+        </div>
+        <div class="form_group">
+            <label for="licens">SPZ:</label>
+            <input type="text" name="licens" id="licens" value="{{ data[2] }}" readonly>
+        </div>
+        <div class="form_group">
+            <label for="repair_type">Typ opravy:</label>
+            <input type="text" name="repair_type" id="repair_type" value="{{ data[3] }}" readonly>
+        </div>
+        <div class="form_group">
+            <label for="notification">Popsat zpravu:</label>
+            <textarea name="notification" id="notification" cols="30" rows="10"></textarea>
+        </div>
+        <div class="form_group">
+            <label for="service_end">Servis je dokonceny:</label>
+            <input type="checkbox" name="service_end" id="service_end" value="on">
+        </div>
+        <div class="form_group">
+            <input type="hidden" name="servis_id" id="servis_id" value="{{ data[0] }}">
+            <input type="submit" value="Odeslat zpravu">
+        </div>
+    </form>
+</div>
+{% endblock %}

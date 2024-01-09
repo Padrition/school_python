@@ -246,7 +246,9 @@ def mechanic_car_list():
         ON v.id = s.vozidlo
         INNER JOIN operace o
         ON o.soucast_servisu = s.id
-        WHERE o.provadi = ?;
+        INNER JOIN stav_servisu st
+        ON st.id_servisu = s.id
+        WHERE o.provadi = ? AND st.stav IS NOT 'dokonceno';
         """,(session['user_id'],)
     )
     data = cur.fetchall()
@@ -254,6 +256,66 @@ def mechanic_car_list():
     con.close()
 
     return render_template("mechanic_car_list.html", data=data)
+
+@app.route("/mechanic/notification", methods=['GET','POST'])
+@mechanic_authorization
+def mechanic_notification():
+    if request.method == 'GET':
+        id = request.args.get('id')
+
+        con = sqlite3.connect("vwa.db")
+        cur = con.cursor()
+
+        cur.execute(
+            """
+            select s.id, v.model, v.spz, o.typ
+            FROM vozidla v
+            INNER JOIN servis s
+            ON v.id = s.vozidlo
+            INNER JOIN operace o
+            ON o.soucast_servisu = s.id
+            WHERE o.provadi = ? AND v.id = ?;
+            """,(session['user_id'], id)
+        )
+        data = cur.fetchone()
+
+        con.close()
+        return render_template('mechanic_notification.html', data=data)
+
+    if request.method == 'POST':
+        servis_id = request.form['servis_id']
+        notification = request.form['notification']
+        service_end = request.form.getlist('service_end')[0]
+        print(service_end)
+
+        con = sqlite3.connect('vwa.db')
+        cur = con.cursor()
+
+        cur.execute(
+            'SELECT st.id FROM stav_servisu st INNER JOIN servis s ON st.id_servisu = s.id'
+        )
+        stav_servisu = cur.fetchone()
+        stav_servisu_id = stav_servisu[0]
+
+        cur.execute(
+            'INSERT INTO notifikace(id_stav, zprava) VALUES(?,?)',(stav_servisu_id, notification)
+        )
+
+        if service_end == 'on':
+            cur.execute(
+                'UPDATE stav_servisu SET stav = "dokonceno" WHERE id = ?',(stav_servisu_id,)
+            )
+            cur.execute(
+                "UPDATE stav_servisu SET dokonceni = DATETIME('now')"
+            )
+        
+        con.commit()
+
+        con.close()
+
+        return redirect('/mechanic')
+
+
 
 @app.route("/manager")
 @manager_authorization

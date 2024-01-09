@@ -157,7 +157,8 @@ input[type=submit]:active {
 .order label,
 .order input[type=text],
 .order select,
-.order input[type=date]{
+.order input[type=date],
+.order input[type=checkbox]{
     margin-bottom: 3em;
 }
 
@@ -192,6 +193,12 @@ input[type=submit]:active {
 
 .form_group input{
     flex: 1;
+}
+
+.form_group textarea{
+    margin-left: 4em;
+    resize: none;
+    margin-bottom: 3em;
 }
 
 .radio_group{

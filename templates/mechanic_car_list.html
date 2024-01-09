@@ -16,7 +16,8 @@
                 <td>{{ row[3] }}</td>
                 <td>{{ row[4] }}</td>
                 <td class="td_submit">
-                    <form action="">
+                    <form action="/mechanic/notification" method="get">
+                        <input type="hidden" name="id" id="id" value="{{ row[0] }}">
                         <input type="submit" value="Poslat zpravu">
                     </form>
                 </td>
