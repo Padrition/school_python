@@ -213,3 +213,92 @@ input[type=submit]:active {
 .radio_group{
     margin-bottom: 3em;
 }
+
+#add_car_mobil{
+    display: none;
+}
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    width: 10%;
+    margin: auto;
+}
+
+.bar {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 6px 0;
+}
+
+@media only screen and (max-width: 500px){   
+    .topnav img{
+        width: 15%;
+        border-radius: 5px;
+        margin-left: 1em;
+    }
+    
+    .topnav input[type=submit]{
+        margin-top: 0.5em;
+        margin-right: 1em;
+        padding: 1em 1em;
+    }
+
+    .base_content {
+        text-align: center;
+        padding: 5px;
+    }
+    
+    .base_content img{
+        width: 100%;
+        border-radius: 0.5em;
+    }
+    
+    .base_content p{
+        font-size: 20px;
+        margin: 0;
+        margin-top: 0.5em;
+    }
+
+    .registration{
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top:40%;
+        padding: 2em;
+        text-align: left;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: larger;
+    }
+
+    .container{
+        flex-wrap: wrap;
+    }
+
+    .panel {
+        border : none;
+        border-bottom: 1px solid black;
+        height: 100%;
+        text-align: center;
+        padding: 0.5em;
+        flex:1;
+        display: none;
+    }
+    
+    .tb_center{
+        width: 100%;
+    }
+    
+    #add_car{
+        display: none;
+    }
+
+    #add_car_mobil{
+        display: inline-block;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+}

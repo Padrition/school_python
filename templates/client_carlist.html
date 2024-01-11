@@ -1,29 +1,68 @@
-{% extends 'base_client_page.html'%}
-{% block content %}
-<div>
-    <form style="direction: rtl;" action="/client/add_car">
-        <input id="add_car" type="submit" value="Pridat auto">
-    </form>
-    <table class="tb_center th_border tb_color_even_tr">
-        <tr>
-            <th>Model</th>
-            <th>SPZ</th>
-            <th>Rok</th>
-            <th></th>
-        </tr>
-        {% for row in data %}
-            <tr>
-                <td>{{ row[0] }}</td> <!--Model-->
-                <td>{{ row[1] }}</td> <!--spz-->
-                <td>{{ row[2] }}</td> <!--rok-->
-                <td class="td_submit">
-                    <form action="/client/create_order" method="post">
-                        <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ row[3] }}">
-                        <input type="submit" value="Objednat servis">
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Autoservis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<script>
+    function toggleMenu() {
+    var panel = document.querySelector('.panel');
+    panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
+}
+</script>
+<body>
+    <div class="topnav">
+        <a href="/"><img src="{{url_for('static', filename='logo.jpg')}}" alt=""></a>
+        <div class="right">
+            <form action="/logout" method="get">
+                <input type="submit" value="Odhlasit se">
+            </form>
+        </div>
+    </div>
+
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <div class="container">
+        <div class="panel">
+            <form action="">
+                <input type="submit" value="Aktualni opravy" formaction="/client/order_list"><br>
+                <input type="submit" value="Seznam vozidel" formaction="/client/car_list"><br>
+                <input id="add_car_mobil" type="submit" value="Pridat auto" formaction="/client/add_car">
+            </form>
+        </div>
+        <div class="content">
+            <div>
+                <form style="direction: rtl;" action="/client/add_car">
+                    <input id="add_car" type="submit" value="Pridat auto">
+                </form>
+                <table class="tb_center th_border tb_color_even_tr">
+                    <tr>
+                        <th>Model</th>
+                        <th>SPZ</th>
+                        <th>Rok</th>
+                        <th></th>
+                    </tr>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td> <!--Model-->
+                            <td>{{ row[1] }}</td> <!--spz-->
+                            <td>{{ row[2] }}</td> <!--rok-->
+                            <td class="td_submit">
+                                <form action="/client/create_order" method="post">
+                                    <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ row[3] }}">
+                                    <input type="submit" value="Objednat servis">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

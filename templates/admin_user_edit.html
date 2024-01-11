@@ -19,9 +19,9 @@
 </script>
 
 <h3 class="centered">Uprava uzivatele</h3>
-<p class = centered>id="error"</p>
+<p class="centered" id="error"></p>
 <div class="center_all_div">
-    <form class="order" action="/admin/user_edit" method="post" onsubmit = "return validateForm">
+    <form class="order" action="/admin/user_edit" method="post" onsubmit = "return validateForm()">
         <div class="form_group">
             <label for="fname">Jmeno:</label>
             <input type="text" name="fname" id="fname" value="{{ user[1] }}">

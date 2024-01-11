@@ -16,7 +16,7 @@
         return true;
     }
 </script>
-<p class = centered>id="error"</p>
+<p class="centered" id="error"></p>
 <h3 class="centered">Pridani auta</h3>
     {% if error %}
     <div style="text-align: center;">
@@ -24,7 +24,7 @@
     </div>
     {% endif %}
 <div class="center_all_div">
-    <form class="order" action="/admin/add_car" method="post" onsubmit = "return validateForm">
+    <form class="order" action="/admin/add_car" method="post" onsubmit = "return validateForm()">
         <div class="form_group">
             <label for="owner">Majitel: </label>
             <input type="text" id="owner" name="owner">
