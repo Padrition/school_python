@@ -30,11 +30,11 @@ def registration():
             )
         )
         cur.execute(
-            "INSERT INTO role_uzivately (platnost, nazev, id_uzivatele) VALUES(1, 'user', last_insert_rowid())"
+            "INSERT INTO role_uzivately (platnost, nazev, id_uzivatele) VALUES(1, 'client', last_insert_rowid())"
         )
         con.commit()
         con.close()
-        return redirect("/client")
+        return redirect("/login")
 
 @app.route("/login", methods=['GET', 'POST'])
 def authorization():
