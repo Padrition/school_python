@@ -860,8 +860,8 @@ def admin_user_lsit():
             FROM uzivately u
             INNER JOIN role_uzivately ur
             ON u.id = ur.id_uzivatele
-            WHERE ur.platnost = 1
-            """
+            WHERE ur.platnost = 1 AND u.id IS NOT ?
+            """, (session['user_id'],)
         )
         users = cur.fetchall()
 
